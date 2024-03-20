@@ -1,8 +1,14 @@
 import React from 'react'
-
+import { Routes, Route } from 'react-router-dom'
+import SignUp from  "./Pages/Authentication/SignUp";
+ 
 const App = () => {
   return (
-    <div>App</div>
+    <>
+    <Routes>
+      <Route path='/' element={<SignUp />}/>
+    </Routes>
+    </>
   )
 }
 
