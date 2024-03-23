@@ -3,6 +3,7 @@ import CallIcon from '@mui/icons-material/Call';
 import MailIcon from '@mui/icons-material/Mail';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 
 const Footer = (props) => {
   return (
