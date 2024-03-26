@@ -3,8 +3,6 @@ import CallIcon from '@mui/icons-material/Call';
 import MailIcon from '@mui/icons-material/Mail';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import TextInput from '../TextInput'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { Link } from 'react-router-dom';
 import XIcon from '@mui/icons-material/X';
@@ -60,28 +58,28 @@ const Footer = (props) => {
                         <div style={styles.secondColumns}>
                             <h1 className='text-m mb-5'>About</h1>
                             <ul className='text-xs' style={styles.linkList}>
-                                <li className='mb-0.5'> <Link> Our story </Link> </li>
-                                <li className='mb-0.5'> <Link> Awards </Link></li>
-                                <li className='mb-0.5'> <Link> Our team </Link></li>
-                                <li className='mb-0.5'> <Link> Carrer </Link></li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> Our story </Link> </li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> Awards </Link></li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> Our team </Link></li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> Carrer </Link></li>
                             </ul>
                         </div>
 
                         <div style={styles.secondColumns}>
                             <h1 className='text-m mb-5'>Resources</h1>
                             <ul className='text-xs' style={styles.linkList}>
-                                <li className='mb-0.5'> <Link> Blog </Link> </li>
-                                <li className='mb-0.5'> <Link> Privacy policy </Link> </li>
-                                <li className='mb-0.5'> <Link> Terms & conditions </Link> </li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> Blog </Link> </li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> Privacy policy </Link> </li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> Terms & conditions </Link> </li>
                             </ul>
                         </div>
 
                         <div style={styles.secondColumns}>
                             <h1 className='text-m mb-5'>Works</h1>
                             <ul className='text-xs' style={styles.linkList}>
-                                <li className='mb-0.5'> <Link> Projects</Link> </li>
-                                <li className='mb-0.5'> <Link> For our society</Link> </li>
-                                <li className='mb-0.5'> <Link> For us</Link></li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> Projects</Link> </li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> For our society</Link> </li>
+                                <li className='mb-0.5'> <Link className='hover:text-red-700'> For us</Link></li>
                             </ul>
                         </div>
 
@@ -111,12 +109,12 @@ const Footer = (props) => {
                 </div>
 
                 <div className='flex justify-start px-20'>
-                    <p className='text-xs w-full' style={styles.linkList}>copyright © 2024 All rights reserved |
-                        <Link className='text-blue-400'> Know more </Link> </p>
+                    <p className='text-sm w-full' style={styles.linkList}>copyright © 2024 | All rights reserved |
+                        <Link className='text-blue-400 hover:text-red-700'> know more.. </Link> </p>
                     <div className='flex justify-end'>
-                        <XIcon style={styles.socialIcons}/>
-                        <FacebookIcon style={styles.socialIcons}/>
-                        <InstagramIcon style={styles.socialIcons}/>
+                        <Link><XIcon className='hover:text-red-700' style={styles.socialIcons}/></Link>
+                        <Link><FacebookIcon className='hover:text-red-700' style={styles.socialIcons}/></Link>
+                       <Link> <InstagramIcon className='hover:text-red-700' style={styles.socialIcons}/></Link>
                     </div>
                 </div>
 
@@ -149,7 +147,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'flex-start',
-        flexWrap: 'wrap',
+        flexWrap: 'wrap'
     },
     secondContainer: {
         padding: '50px 10px',
@@ -171,6 +169,9 @@ const styles = {
         padding: '0',
         margin: '0',
         color: 'rgb(166, 168, 169)'
+        ,hover:{
+            color: 'red'
+        }
     },
     socialIcons: {
         fontSize: '24px',

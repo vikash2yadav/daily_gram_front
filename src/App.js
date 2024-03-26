@@ -6,6 +6,8 @@ import ForgotPassword from './Pages/Authentication/ForgotPassword';
 import ResetPassword from './Pages/Authentication/ResetPassword';
 import Home from './Pages/Home';
 import SnackBar from './Components/SnackBar';
+import Header from './Components/Header';
+import Navbar from './Components/Navbar/Navbar';
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
       <Route path='/reset_password/:id' element={<ResetPassword />}/>
       <Route path='/home' element={<Home />}/>
       <Route path='/S' element={<SnackBar />}/>
+      <Route path='/h' element={<Header />}/>
+      <Route path='/n' element={<Navbar />}/>
     </Routes>
     </>
   )

@@ -21,7 +21,7 @@ const Form = (props) => {
 
     return (
         <>
-            <div className='bg-blue-100 w-full p-10' style={props.style}>
+            <div className='bg-blue-100 w-full p-10 shadow-xl rounded-lg' style={props.style}>
 
                 <FormTitle className='flex justify-center font-bold text-black-700 text-xl mb-5'
                     label="Sign in" />

@@ -27,7 +27,7 @@ const Form = (props) => {
 
     return (
         <>
-            <div className='bg-blue-100 w-full px-10 py-8' style={props.style}>
+            <div className='bg-blue-100 w-full p-10 shadow-xl rounded-lg' style={props.style}>
 
                 <FormTitle
                     className='flex justify-center font-bold text-black-700 text-xl mb-3'
@@ -132,10 +132,7 @@ const Form = (props) => {
                     </div>
 
                     <div className='flex justify-center mt-5'>
-                        <ButtonC variant="contained" label="Sign Up" type="submit" />
-                         <ButtonC onClick={() => {
-                            navigate('/signin')
-                        }} style={{ marginLeft: "5px" }} variant="outlined" label="Sign In" /> 
+                        <ButtonC variant="contained" label="Register Now" type="submit" /> 
                     </div>
                 </form>
             </div>
