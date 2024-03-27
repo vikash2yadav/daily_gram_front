@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TextInput from '../../../../Components/TextInput'
 import ButtonC from '../../../../Components/ButtonC'
 import FormTitle from '../../../../Components/FormTitle'
@@ -9,15 +9,34 @@ import { signInApi } from '../../../../Apis/users'
 import SnackBar from '../../../../Components/SnackBar'
 
 const Form = (props) => {
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [status, setStatus] = useState('');
 
     const formik = useFormik({
         initialValues: signInInitialValues,
         validationSchema: signInSchema,
         onSubmit: async (values) => {
             let data = await signInApi(values);
-            alert(data.data.message)
+            if (data.status === 200) {
+                setOpen(true);
+                setStatus(true);
+                setMessage(data.data.message);
+            } else {
+                setOpen(true);
+                setStatus(false);
+                setMessage(data.data.message)
+            }
         },
     })
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
 
     return (
         <>
@@ -62,6 +81,13 @@ const Form = (props) => {
                     </div>
                 </form>
             </div>
+           {status ? (
+             <SnackBar handleClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }} open={open} message={message} />
+           ) : 
+           (
+            <SnackBar handleClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }} open={open} message={message} />
+           )
+           }
         </>
     )
 }

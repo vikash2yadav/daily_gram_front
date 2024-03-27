@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FormTitle from '../../../../Components/FormTitle'
 import TextInput from '../../../../Components/TextInput'
 import ButtonC from '../../../../Components/ButtonC'
@@ -6,16 +6,28 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { checkOtpInitialValues, checkOtpSchema, forgotPasswordInitialValues, forgotPasswordSchema } from '../Schema'
 import { checkOtpApi, forgotPasswordApi } from '../../../../Apis/users'
+import SnackBar from '../../../../Components/SnackBar'
 
 const Form = (props) => {
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [status, setStatus] = useState('');
 
     const formik = useFormik({
         initialValues: forgotPasswordInitialValues,
         validationSchema: forgotPasswordSchema,
         onSubmit: async (values) => {
             let data = await forgotPasswordApi(values);
-            alert(data.data.message)
+            if (data.status === 200) {
+                setOpen(true);
+                setStatus(true);
+                setMessage(data.data.message)
+            } else {
+                setOpen(true);
+                setStatus(false);
+                setMessage(data.data.message)
+            }
         },
     })
 
@@ -24,14 +36,30 @@ const Form = (props) => {
         validationSchema: checkOtpSchema,
         onSubmit: async (values) => {
             let data = await checkOtpApi(values);
-            if(data.status === 200){
-                alert(data.data.message)
-                navigate(`/reset_password/${data.data.data.user_id}`);
-            }else{
-                alert(data.data.message)
+            console.log(data)
+            if (data.status === 200) {
+                    setOpen(true);
+                    setStatus(true);
+                    setMessage(data.data.message)
+                    setTimeout(() => {
+                        navigate(`/reset_password/${data.data.data.user_id}`);
+                    }, 1000)
+            } else {
+                setOpen(true);
+                setStatus(false);
+                setMessage(data.data.message)
             }
         },
     })
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
 
     return (
         <>
@@ -44,7 +72,7 @@ const Form = (props) => {
                     <p className='text-xs mb-2 text-blue-700'>Enter your email address to reset password </p>
                     <div className='w-full mb-5' >
                         <div> <TextInput placeholder="Enter email address" variant="standard"
-                        style={{width:"100%"}}
+                            style={{ width: "100%" }}
                             name="email"
                             onChange={formik.handleChange}
                             value={formik.values.email}
@@ -65,7 +93,7 @@ const Form = (props) => {
                     <div className='w-full mb-5' >
                         <div> <TextInput placeholder="Enter OTP" variant="standard"
                             name="otp"
-                            style={{width:"100%"}}
+                            style={{ width: "100%" }}
                             onChange={formik2.handleChange}
                             value={formik2.values.otp} />
                             {formik2.errors.otp && formik2.touched.otp ? (
@@ -80,6 +108,15 @@ const Form = (props) => {
                 </form>
 
             </div>
+
+            {status ? (
+             <SnackBar handleClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }} open={open} message={message} />
+           ) : 
+           (
+            <SnackBar handleClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }} open={open} message={message} />
+           )
+           }
+
         </>
     )
 }

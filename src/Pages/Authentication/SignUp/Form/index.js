@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TextInput from '../../../../Components/TextInput'
 import ButtonC from '../../../../Components/ButtonC'
 import SelectInputC from '../../../../Components/SelectInputC'
@@ -7,9 +7,14 @@ import FormTitle from '../../../../Components/FormTitle'
 import { useFormik } from 'formik'
 import { signUpInitialValues, signUpSchema } from '../Schema/index'
 import CheckBox from '../../../../Components/CheckBox'
+import {signUpApi} from '../../../../Apis/users';
+import SnackBar from '../../../../Components/SnackBar'
 
 const Form = (props) => {
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [status, setStatus] = useState('');
 
     const genderOptions = [
         { label: 'Male', value: 'male' },
@@ -20,10 +25,31 @@ const Form = (props) => {
     const formik = useFormik({
         initialValues: signUpInitialValues,
         validationSchema: signUpSchema,
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: async (values) => {
+           let data = await signUpApi(values);
+           if (data.status === 200) {
+            setOpen(true);
+            setStatus(true);
+            setMessage(data.data.message);
+            setTimeout(()=>{
+                navigate('signin');
+            }, 1000)
+        } else {
+            setOpen(true);
+            setStatus(false);
+            setMessage(data.data.message)
+        }
         },
     })
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
 
     return (
         <>
@@ -32,7 +58,7 @@ const Form = (props) => {
                 <FormTitle
                     className='flex justify-center font-bold text-black-700 text-xl mb-3'
                     label="Sign Up" />
-     <p className='text-xs mb-5'>Please fill in this form to create an account </p> 
+                <p className='text-xs mb-5'>Please fill in this form to create an account </p>
                 <form onSubmit={formik.handleSubmit}>
 
                     <div className='w-full mb-5 grid md:gap-10 grid-cols-1 md:grid-cols-2' >
@@ -64,7 +90,7 @@ const Form = (props) => {
                                 <div className='text-red-600 text-xs'>{formik.errors.email}</div>
                             ) : null}
                         </div>
-                     
+
                     </div>
 
                     <div className='w-full mb-5  grid md:gap-10 grid-cols-1 md:grid-cols-2'>
@@ -77,7 +103,17 @@ const Form = (props) => {
                                 <div className='text-red-600 text-xs'>{formik.errors.username}</div>
                             ) : null}
                         </div>
+
                         <div>
+                            <input type="date" placeholder="BOD" 
+                            onChange={formik.handleChange}
+                            name="birth_date"
+                            className='bg-blue-100'
+                            style={{ width: '100%'}}
+                            value={formik.values.birth_date} />
+                            {formik.errors.birth_date && formik.touched.birth_date ? (
+                                <div className='text-red-600 text-xs'>{formik.errors.birth_date}</div>
+                            ) : null}
 
                         </div>
                     </div>
@@ -101,7 +137,7 @@ const Form = (props) => {
                         </div>
                     </div>
 
-                    {/* <div className='w-full mb-5 grid md:gap-10 grid-cols-1 md:grid-cols-2'>
+                    <div className='w-full mb-5 grid md:gap-10 grid-cols-1 md:grid-cols-2'>
                         <div>
                             <TextInput placeholder="Enter phone" variant="standard"
                                 onChange={formik.handleChange}
@@ -121,21 +157,29 @@ const Form = (props) => {
                                 <div className='text-red-600 text-xs'>{formik.errors.gender}</div>
                             ) : null}
                         </div>
-                    </div> */}
+                    </div>
 
                     <div className='w-full mb-1 flex justify-start align-center'>
-                    <p className='text-xs font-semibold'>
-                         <CheckBox name="terms" onChange={formik.handleChange}
-                                value={formik.values.terms}  />
-                          I accept the <Link className='text-blue-700'> Terms of Use </Link> & <Link className='text-blue-700'>Privacy Policy</Link></p> 
-                          
+                        <p className='text-xs font-semibold'>
+                            <CheckBox name="terms" onChange={formik.handleChange}
+                                value={formik.values.terms} />
+                            I accept the <Link className='text-blue-700'> Terms of Use </Link> & <Link className='text-blue-700'>Privacy Policy</Link></p>
+
                     </div>
 
                     <div className='flex justify-center mt-5'>
-                        <ButtonC variant="contained" label="Register Now" type="submit" /> 
+                        <ButtonC variant="contained" label="Register Now" type="submit" />
                     </div>
                 </form>
             </div>
+
+            {status ? (
+             <SnackBar handleClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }} open={open} message={message} />
+           ) : 
+           (
+            <SnackBar handleClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }} open={open} message={message} />
+           )
+           }
 
         </>
     )

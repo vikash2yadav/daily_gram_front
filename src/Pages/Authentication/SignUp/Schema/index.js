@@ -10,6 +10,7 @@ export const signUpSchema = Yup.object().shape({
   confirm_password: Yup.string().min(6, 'should be same as password' ).required('Required'),
   contact_no: Yup.string().min(10).max(10).required('Required'),
   gender: Yup.string().required('Required'),
+  birth_date: Yup.date().required('Required'),
   // terms: Yup.boolean().required('Accept all terms and conditions.')
 });
 
@@ -19,9 +20,8 @@ export const signUpInitialValues = {
   email: '',
   password: '',
   username: '',
-  country_code: '',
   contact_no: '',
   gender: '',
   birth_date: '',
-  terms: ''
+  confirm_password: ''
 }

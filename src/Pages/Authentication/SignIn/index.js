@@ -8,7 +8,7 @@ const SignIn = () => {
   return (
     <>
     <Header2/>
-    <div className='flex justify-center bg-yellow-100 shadow-xl rounded-lg p-10'>
+    <div className='flex justify-center shadow-xl rounded-lg p-10'>
         {/* <div className='p-1'> 
          <ImageBox
          src="https://w7.pngwing.com/pngs/795/904/png-transparent-feature-phone-smartphone-instagram-social-media-marketing-smartphone-gadget-electronics-mobile-phone-thumbnail.png" 
