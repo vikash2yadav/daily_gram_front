@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FormTitle from '../../../../Components/FormTitle'
 import TextInput from '../../../../Components/TextInput'
 import ButtonC from '../../../../Components/ButtonC'
@@ -6,20 +6,43 @@ import { useFormik } from 'formik'
 import { resetPasswordInitialValues, resetPasswordSchema } from '../Schema'
 import { resetPasswordApi } from '../../../../Apis/users'
 import { useNavigate, useParams } from 'react-router-dom'
+import SnackBar from '../../../../Components/SnackBar'
 
 const Form = (props) => {
     const navigate = useNavigate();
     const params = useParams();
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [status, setStatus] = useState('');
 
     const formik = useFormik({
         initialValues: resetPasswordInitialValues,
         validationSchema: resetPasswordSchema,
         onSubmit: async (values) => {
             let data = await resetPasswordApi(values, params?.id);
-            alert(data.data.message) 
-            navigate('/signin')
+            if(data.status === 200){
+                setOpen(true);
+                setStatus(true);
+                setMessage(data.data.message);
+                setTimeout(()=>{
+                    navigate('/signin')
+                }, 1000)
+            }else{
+                setOpen(true);
+                setStatus(false);
+                setMessage(data.data.message)
+            }
         },
     })
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
     return (
         <>
             <div className='bg-blue-100 w-full p-10 shadow-xl rounded-lg' style={props.style}>
@@ -60,6 +83,15 @@ const Form = (props) => {
                     </div>
                 </form>
             </div>
+
+            {status ? (
+             <SnackBar handleClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }} open={open} message={message} />
+           ) : 
+           (
+            <SnackBar handleClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }} open={open} message={message} />
+           )
+           }
+
         </>
     )
 }

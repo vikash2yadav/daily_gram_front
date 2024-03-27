@@ -92,3 +92,14 @@ export async function resetPasswordApi(data, id) {
         throw error;
     }
 }
+
+
+// Sign up api function
+export async function signUpApi(data) {
+    try {
+        const response = await callPostApi({ url: "user/sign_up", body: data });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}

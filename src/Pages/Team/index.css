@@ -1,0 +1,11 @@
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    margin: 2vmax auto;
+    flex-wrap: wrap;
+    width: 80vw;
+}
+
+

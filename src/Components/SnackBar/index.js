@@ -1,16 +1,21 @@
-import { Snackbar } from '@mui/material'
+import { Alert } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
 import React from 'react'
 
 const SnackBar = (props) => {
+
   return (
     <>
-<Snackbar
-  open={props.open}
-  autoHideDuration={6000}
-//   onClose={handleClose}
-  message={props.message}
-//   action={action}
-/>
+      <div>
+      <Snackbar open={props.open} autoHideDuration={3000} onClose={props.handleClose}>
+        <Alert
+          severity={props.severity}
+          variant={props.variant}
+        >
+          {props.message}
+        </Alert>
+      </Snackbar>
+    </div>
     </>
   )
 }

@@ -60,7 +60,7 @@ const Footer = (props) => {
                             <ul className='text-xs' style={styles.linkList}>
                                 <li className='mb-0.5'> <Link className='hover:text-red-700'> Our story </Link> </li>
                                 <li className='mb-0.5'> <Link className='hover:text-red-700'> Awards </Link></li>
-                                <li className='mb-0.5'> <Link className='hover:text-red-700'> Our team </Link></li>
+                                <li className='mb-0.5'> <Link to="/team" className='hover:text-red-700'> Our team </Link></li>
                                 <li className='mb-0.5'> <Link className='hover:text-red-700'> Carrer </Link></li>
                             </ul>
                         </div>
@@ -130,7 +130,7 @@ const styles = {
     //     textAlign: 'center'
     // }
     footer: {
-        backgroundColor: '#222',
+        backgroundColor: '#333',
         color: '#fff',
         padding: '50px 0',
         fontFamily: 'Arial, sans-serif',

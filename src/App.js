@@ -8,6 +8,7 @@ import Home from './Pages/Home';
 import SnackBar from './Components/SnackBar';
 import Header from './Components/Header';
 import Navbar from './Components/Navbar/Navbar';
+import Team from './Pages/Team';
 
 const App = () => {
   return (
@@ -18,9 +19,10 @@ const App = () => {
       <Route path='/forgot_password' element={<ForgotPassword />}/>
       <Route path='/reset_password/:id' element={<ResetPassword />}/>
       <Route path='/home' element={<Home />}/>
-      <Route path='/S' element={<SnackBar />}/>
+      <Route path='/s' element={<SnackBar />}/>
       <Route path='/h' element={<Header />}/>
       <Route path='/n' element={<Navbar />}/>
+      <Route path='team' element={<Team />}/>
     </Routes>
     </>
   )
