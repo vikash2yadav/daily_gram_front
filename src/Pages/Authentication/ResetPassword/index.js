@@ -9,14 +9,14 @@ const ResetPassword = (props) => {
     <>
     <Header2/>
     <div className='flex justify-center p-10 shadow-xl rounded-lg'>
-        <div className='p-1'> 
+        {/* <div className='p-1'> 
          <ImageBox
          src="https://w7.pngwing.com/pngs/795/904/png-transparent-feature-phone-smartphone-instagram-social-media-marketing-smartphone-gadget-electronics-mobile-phone-thumbnail.png" 
          alt="logo"
          height="300px"
          width="100%" 
          />
-        </div>
+        </div> */}
         <div>
         <Form style={{borderRadius: "5px", width: "100%", height:"auto"}}/>
         
